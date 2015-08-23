@@ -1,5 +1,4 @@
-# getdataproject
-##step 1
+# ##step 1
 ##loading the Train and Test data into R
 activity_labels <- read.table("./UCI HAR Dataset/activity_labels.txt")
 features <- read.table("./UCI HAR Dataset/features.txt")
@@ -16,24 +15,24 @@ ymerge <-cbind(subject_test,y_test,X_test)
 data <- rbind(xmerge,ymerge)
 
 
-##step4 Appropriately labels the data set with descriptive variable names. 
+#step4 Appropriately labels the data set with descriptive variable names. 
 ##naming the variables in dataset with features.txt
 ft <- as.character(features[,2])
 names(data) <- c("subject","label",ft)
 
-##step2
+#step2
 ##2.Extracts only the measurements on the mean and standard deviation for each measurement
 ##store the dataset as data2
 data2 <- data[,c("subject","label", colnames(data)[grep("mean()|std()", colnames(data))])]
 
 
-##step 3
+#step 3
 ##Uses descriptive activity names to name the activities in the data3
 ##merge the activity labels with data3 into data4
 names(activity_labels) <-c("label","activity")
 data3 <- merge(activity_labels,data2,by.x="label",by.y="label", all.x = TRUE)
 
-##step5 creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+#step5 creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 ## tidy the data
 library(tidyr)
 data4 <-gather(data3[,2:82],variable,value,-subject,-activity)
